@@ -1,0 +1,45 @@
+﻿@page "{a?}/{b?}"
+@model GoLinks.Pages.Links.CreateModel
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Create</h1>
+
+<h4>GoLink</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="GoLink.Owner" class="control-label"></label>
+                <input asp-for="GoLink.Owner" class="form-control" />
+                <span asp-validation-for="GoLink.Owner" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="GoLink.ShortLink" class="control-label"></label>
+                <input asp-for="GoLink.ShortLink" class="form-control" />
+                <span asp-validation-for="GoLink.ShortLink" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="GoLink.DestinationLink" class="control-label"></label>
+                <input asp-for="GoLink.DestinationLink" class="form-control" />
+                <span asp-validation-for="GoLink.DestinationLink" class="text-danger"></span>
+            </div>
+            <input type="hidden" asp-for="GoLink.NumUses" />
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-page="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

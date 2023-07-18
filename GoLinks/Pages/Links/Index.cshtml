@@ -1,0 +1,91 @@
+﻿@page
+@model GoLinks.Pages.Links.IndexModel
+
+@section Scripts
+{
+    <script src="https://code.jquery.com/jquery-3.5.1.js" defer></script>
+    <script src="https://cdn.datatables.net/1.13.5/js/jquery.dataTables.min.js" defer></script>
+    <css src="https://cdn.datatables.net/1.13.5/css/jquery.dataTables.min.css" defer></css>
+    <script src="https://cdn.datatables.net/1.13.5/js/dataTables.bootstrap5.min.js" defer></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#linkTable').DataTable({
+                "ordering": true,
+                "order": [[3, "desc"]],
+                "search": {}
+            });
+        });
+    </script>
+}
+
+@{
+    ViewData["Title"] = "Browse Go Links";
+}
+
+<style type="text/css">
+    table.dataTable thead .sorting:after,
+    table.dataTable thead .sorting:before,
+    table.dataTable thead .sorting_asc:after,
+    table.dataTable thead .sorting_asc:before,
+    table.dataTable thead .sorting_asc_disabled:after,
+    table.dataTable thead .sorting_asc_disabled:before,
+    table.dataTable thead .sorting_desc:after,
+    table.dataTable thead .sorting_desc:before,
+    table.dataTable thead .sorting_desc_disabled:after,
+    table.dataTable thead .sorting_desc_disabled:before {
+    }
+</style>
+
+<h1>Browse Links</h1>
+
+<p>
+    Pro-tip: you can hit this page with @(Request.HttpContext.Request.Path)?Owner=mderu or 
+    @(Request.HttpContext.Request.Path)?ShortLink=foo to filter on the owner or short link path, respectively.
+</p>
+
+<p>
+    <a asp-page="Create">Create New</a>
+</p>
+<table id="linkTable" class="table" cellspacing="0" width="100%" class="display">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.GoLinks[0].Owner)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.GoLinks[0].ShortLink)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.GoLinks[0].DestinationLink)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.GoLinks[0].NumUses)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+    @foreach (var item in Model.GoLinks)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Owner)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ShortLink)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DestinationLink)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NumUses)
+            </td>
+            <td>
+                <a asp-page="./Edit" asp-route-id="@item.Id">Edit</a> |
+                <a asp-page="./Details" asp-route-id="@item.Id">Details</a> |
+                <a asp-page="./Delete" asp-route-id="@item.Id">Delete</a>
+            </td>
+        </tr>
+    }
+    </tbody>
+</table>
